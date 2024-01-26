@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="projetfinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="admin">
+    <Key>
+      <PropertyRef Name="login" />
+    </Key>
+    <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="actif" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="articles">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="titre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="prix" Type="Double" Nullable="false" />
+    <Property Name="categorie" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="clients">
+    <Key>
+      <PropertyRef Name="login" />
+    </Key>
+    <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="nom" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="prenom" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="telephone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ville" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="codePostal" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="mail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Commandes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idClient" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="prixtotal" Type="Double" Nullable="false" />
+    <Property Name="infos" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="projetfinalEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="admin" EntityType="Self.admin" />
+    <EntitySet Name="articles" EntityType="Self.articles" />
+    <EntitySet Name="clients" EntityType="Self.clients" />
+    <EntitySet Name="Commandes" EntityType="Self.Commandes" />
+  </EntityContainer>
+</Schema>
