@@ -1,9 +1,11 @@
-﻿using System;
+﻿using ProjetFinal.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace ProjetFinal.Controllers
 {
@@ -11,30 +13,44 @@ namespace ProjetFinal.Controllers
     public class ArticleController : ApiController
     {
         // GET: api/Article
-        public IEnumerable<string> Get()
+        public IEnumerable<articles> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new DAOArticle().FindAll();
+
         }
 
-        // GET: api/Article/5
-        public string Get(int id)
+        // GET api/Article/?min=10&max=15
+        [HttpGet]
+        public IEnumerable<articles> FindByPrixMinMax(int min, int max)
         {
-            return "value";
+            return new DAOArticle().FindByPrixMinMax(min, max);
+        }
+
+      
+
+        // GET: api/Article/5
+        public articles Get(int id)
+        {
+            return new DAOArticle().FindById(id);
         }
 
         // POST: api/Article
-        public void Post([FromBody]string value)
+        public void Post([FromBody]articles value)
         {
+            new DAOArticle().Create(value);
+
         }
 
-        // PUT: api/Article/5
-        public void Put(int id, [FromBody]string value)
+        // PUT: api/Article
+        public void Put([FromBody]articles value)
         {
+            new DAOArticle().Update(value);
         }
 
         // DELETE: api/Article/5
         public void Delete(int id)
         {
+            new DAOArticle().Delete(id);
         }
     }
 }
