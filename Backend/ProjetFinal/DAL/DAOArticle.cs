@@ -8,29 +8,29 @@ namespace ProjetFinal.DAL
 {
     public class DAOArticle
     {
-        public List<articles> FindAll()
+        public List<Article> FindAll()
         {
             projetfinalEntities context = new projetfinalEntities();
-            return context.articles.ToList<articles>();
+            return context.Articles.ToList();
         }
-        public articles FindById(int id)
+        public Article FindById(int id)
         {
             projetfinalEntities context = new projetfinalEntities();
-            return context.articles.Find(id);
+            return context.Articles.Find(id);
         }
-        public articles Create(articles p)
+        public Article Create(Article art)
         {
             projetfinalEntities context = new projetfinalEntities();
-            context.articles.Add(p);
+            context.Articles.Add(art);
             context.SaveChanges();
-            return p;
+            return art;
         }
 
-        public List<articles> FindByPrixMinMax(int min, int max)
+        public List<Article> FindByPrixMinMax(int min, int max)
         {
             projetfinalEntities context = new projetfinalEntities();
 
-            return context.articles.Where(a => a.prix >= min && a.prix <= max).OrderBy(a => a.prix).ToList();
+            return context.Articles.Where(a => a.prix >= min && a.prix <= max).OrderBy(a => a.prix).ToList();
         }
 
         
@@ -38,14 +38,14 @@ namespace ProjetFinal.DAL
         public void Delete(int id)
         {
             projetfinalEntities context = new projetfinalEntities();
-            articles p = context.articles.Find(id);
-            context.articles.Remove(p);
+            Article art = context.Articles.Find(id);
+            context.Articles.Remove(art);
             context.SaveChanges();
         }
-        public void Update(articles p)
+        public void Update(Article art)
         {
             projetfinalEntities context = new projetfinalEntities();
-            context.Entry(p).State = EntityState.Modified;
+            context.Entry(art).State = EntityState.Modified;
             context.SaveChanges();
 
 

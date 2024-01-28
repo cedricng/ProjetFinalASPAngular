@@ -12,13 +12,14 @@ namespace ProjetFinal.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class articles
+    public partial class Commande
     {
         public int id { get; set; }
-        public string titre { get; set; }
-        public string description { get; set; }
-        public string image { get; set; }
-        public double prix { get; set; }
-        public string categorie { get; set; }
+        public int idClient { get; set; }
+        public System.DateTime date { get; set; }
+        public double prixTotal { get; set; }
+        public string infos { get; set; }
+    
+        public virtual Client Client { get; set; }
     }
 }

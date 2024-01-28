@@ -25,9 +25,8 @@ namespace ProjetFinal.DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<admin> admin { get; set; }
-        public virtual DbSet<articles> articles { get; set; }
-        public virtual DbSet<clients> clients { get; set; }
-        public virtual DbSet<Commandes> Commandes { get; set; }
+        public virtual DbSet<Article> Articles { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<Commande> Commandes { get; set; }
     }
 }

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="projetfinalModelStoreContainer" CdmEntityContainer="projetfinalEntities">
+    <EntitySetMapping Name="Articles">
+      <EntityTypeMapping TypeName="projetfinalModel.Article">
+        <MappingFragment StoreEntitySet="Articles">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="titre" ColumnName="titre" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="prix" ColumnName="prix" />
+          <ScalarProperty Name="categorie" ColumnName="categorie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="projetfinalModel.Client">
+        <MappingFragment StoreEntitySet="Clients">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="mail" ColumnName="mail" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="telephone" ColumnName="telephone" />
+          <ScalarProperty Name="adresse" ColumnName="adresse" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="role" ColumnName="role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Commandes">
+      <EntityTypeMapping TypeName="projetfinalModel.Commande">
+        <MappingFragment StoreEntitySet="Commandes">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="idClient" ColumnName="idClient" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="prixTotal" ColumnName="prixTotal" />
+          <ScalarProperty Name="infos" ColumnName="infos" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

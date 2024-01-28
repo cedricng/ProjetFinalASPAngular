@@ -13,7 +13,7 @@ namespace ProjetFinal.Controllers
     public class ClientController : ApiController
     {
         // GET: api/Client
-        public IEnumerable<clients> Get()
+        public IEnumerable<Client> Get()
         {
             return new DaoClient().FindAll();
 
@@ -24,7 +24,7 @@ namespace ProjetFinal.Controllers
 
 
         // GET: api/Client/?login=pseudo
-        public clients Get(string login)
+        public Client Get(string login)
         {
             return new DaoClient().FindByLogin(login);
         }
@@ -36,14 +36,14 @@ namespace ProjetFinal.Controllers
         }*/
 
         // POST: api/Client
-        public void Post([FromBody]clients value)
+        public void Post([FromBody]Client value)
         {
             new DaoClient().Create(value);
 
         }
 
         // PUT: api/Client
-        public void Put([FromBody]clients value)
+        public void Put([FromBody]Client value)
         {
             new DaoClient().Update(value);
         }

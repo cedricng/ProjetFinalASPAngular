@@ -12,16 +12,13 @@ namespace ProjetFinal.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class clients
+    public partial class Article
     {
-        public string login { get; set; }
-        public string password { get; set; }
-        public string nom { get; set; }
-        public string prenom { get; set; }
-        public string telephone { get; set; }
-        public string adresse { get; set; }
-        public string ville { get; set; }
-        public string codePostal { get; set; }
-        public string mail { get; set; }
+        public int id { get; set; }
+        public string titre { get; set; }
+        public string description { get; set; }
+        public string image { get; set; }
+        public double prix { get; set; }
+        public string categorie { get; set; }
     }
 }

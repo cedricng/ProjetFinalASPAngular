@@ -8,39 +8,36 @@ namespace ProjetFinal.DAL
 {
     public class DaoClient
     {
-        public List<clients> FindAll()
+        public List<Client> FindAll()
         {
             projetfinalEntities context = new projetfinalEntities();
-            return context.clients.ToList<clients>();
+            return context.Clients.ToList();
         }
-        public clients FindByLogin(string login)
+        public Client FindByLogin(string login)
         {
             projetfinalEntities context = new projetfinalEntities();
-            return context.clients.Find(login);
+            return context.Clients.Find(login);
         }
-        public clients Create(clients p)
+        public Client Create(Client cli)
         {
             projetfinalEntities context = new projetfinalEntities();
-            context.clients.Add(p);
+            context.Clients.Add(cli);
             context.SaveChanges();
-            return p;
+            return cli;
         }
-
-
-
 
 
         public void Delete(string login)
         {
             projetfinalEntities context = new projetfinalEntities();
-            clients p = context.clients.Find(login);
-            context.clients.Remove(p);
+            Client cli = context.Clients.Find(login);
+            context.Clients.Remove(cli);
             context.SaveChanges();
         }
-        public void Update(clients p)
+        public void Update(Client cli)
         {
             projetfinalEntities context = new projetfinalEntities();
-            context.Entry(p).State = EntityState.Modified;
+            context.Entry(cli).State = EntityState.Modified;
             context.SaveChanges();
 
 
