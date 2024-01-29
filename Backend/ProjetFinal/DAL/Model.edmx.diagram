@@ -4,11 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9cd659143f11400bbff03ff0a1bf2bfe" Name="Diagram1">
-        <EntityTypeShape EntityType="projetfinalModel.Article" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+      <Diagram DiagramId="9cd659143f11400bbff03ff0a1bf2bfe" Name="Diagram1" ZoomLevel="99">
+        <EntityTypeShape EntityType="projetfinalModel.Article" Width="1.5" PointX="5.5" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="projetfinalModel.Client" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="projetfinalModel.Commande" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="projetfinalModel.Commande" Width="1.5" PointX="2.875" PointY="0.625" IsExpanded="true" />
         <AssociationConnector Association="projetfinalModel.FK_Commandes_Clients" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="projetfinalModel.Auth" Width="1.5" PointX="2.875" PointY="3.125" />
+        <AssociationConnector Association="projetfinalModel.FK_Auth_Clients" />
+        <AssociationConnector Association="projetfinalModel.FK_Auth_Clients1" />
+        <AssociationConnector Association="projetfinalModel.FK_Auth_Clients2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

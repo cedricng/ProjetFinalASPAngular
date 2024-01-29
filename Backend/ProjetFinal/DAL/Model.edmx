@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="projetfinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="projetfinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Articles">
           <Key>
             <PropertyRef Name="id" />
@@ -16,16 +16,23 @@
           <Property Name="prix" Type="float" Nullable="false" />
           <Property Name="categorie" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
-        <EntityType Name="Clients">
+        <EntityType Name="Auth">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idClient" Type="int" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="nom" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="prenom" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="login" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="mail" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="password" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="telephone" Type="nvarchar" MaxLength="30" />
           <Property Name="adresse" Type="nvarchar" MaxLength="100" />
           <Property Name="age" Type="int" />
@@ -41,6 +48,18 @@
           <Property Name="prixTotal" Type="float" Nullable="false" />
           <Property Name="infos" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Auth_Clients">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="Auth" Type="Self.Auth" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Auth">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Commandes_Clients">
           <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
           <End Role="Commandes" Type="Self.Commandes" Multiplicity="*" />
@@ -55,15 +74,19 @@
         </Association>
         <EntityContainer Name="projetfinalModelStoreContainer">
           <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Auth" EntityType="Self.Auth" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Commandes" EntityType="Self.Commandes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Auth_Clients" Association="Self.FK_Auth_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Auth" EntitySet="Auth" />
+          </AssociationSet>
           <AssociationSet Name="FK_Commandes_Clients" Association="Self.FK_Commandes_Clients">
             <End Role="Clients" EntitySet="Clients" />
             <End Role="Commandes" EntitySet="Commandes" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="projetfinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -87,12 +110,12 @@
           <Property Name="prenom" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="mail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="telephone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="age" Type="Int32" />
           <Property Name="role" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Commandes" Relationship="Self.FK_Commandes_Clients" FromRole="Clients" ToRole="Commandes" />
+          <NavigationProperty Name="Auth" Relationship="projetfinalModel.FK_Auth_Clients2" FromRole="Client" ToRole="Auth" />
         </EntityType>
         <EntityType Name="Commande">
           <Key>
@@ -125,7 +148,65 @@
             <End Role="Clients" EntitySet="Clients" />
             <End Role="Commandes" EntitySet="Commandes" />
           </AssociationSet>
+          <EntitySet Name="Auths" EntityType="projetfinalModel.Auth" />
+          <AssociationSet Name="FK_Auth_Clients" Association="projetfinalModel.FK_Auth_Clients">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Auth" EntitySet="Auths" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auth_Clients1" Association="projetfinalModel.FK_Auth_Clients1">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Auth" EntitySet="Auths" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auth_Clients2" Association="projetfinalModel.FK_Auth_Clients2">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Auth" EntitySet="Auths" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Auth">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="idClient" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="projetfinalModel.FK_Auth_Clients2" FromRole="Auth" ToRole="Client" />
+        </EntityType>
+        <Association Name="FK_Auth_Clients">
+          <End Type="projetfinalModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="projetfinalModel.Auth" Role="Auth" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Auth">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auth_Clients1">
+          <End Type="projetfinalModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="projetfinalModel.Auth" Role="Auth" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Auth">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auth_Clients2">
+          <End Type="projetfinalModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="projetfinalModel.Auth" Role="Auth" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Auth">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -152,7 +233,6 @@
                 <ScalarProperty Name="prenom" ColumnName="prenom" />
                 <ScalarProperty Name="login" ColumnName="login" />
                 <ScalarProperty Name="mail" ColumnName="mail" />
-                <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="telephone" ColumnName="telephone" />
                 <ScalarProperty Name="adresse" ColumnName="adresse" />
                 <ScalarProperty Name="age" ColumnName="age" />
@@ -168,6 +248,15 @@
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="prixTotal" ColumnName="prixTotal" />
                 <ScalarProperty Name="infos" ColumnName="infos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Auths">
+            <EntityTypeMapping TypeName="projetfinalModel.Auth">
+              <MappingFragment StoreEntitySet="Auth">
+                <ScalarProperty Name="idClient" ColumnName="idClient" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

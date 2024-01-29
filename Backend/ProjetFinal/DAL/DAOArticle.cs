@@ -6,7 +6,7 @@ using System.Data.Entity;
 
 namespace ProjetFinal.DAL
 {
-    public class DAOArticle
+    public class DaoArticle
     {
         public List<Article> FindAll()
         {

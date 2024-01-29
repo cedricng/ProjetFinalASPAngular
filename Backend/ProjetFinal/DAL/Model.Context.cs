@@ -28,5 +28,6 @@ namespace ProjetFinal.DAL
         public virtual DbSet<Article> Articles { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Commande> Commandes { get; set; }
+        public virtual DbSet<Auth> Auths { get; set; }
     }
 }
