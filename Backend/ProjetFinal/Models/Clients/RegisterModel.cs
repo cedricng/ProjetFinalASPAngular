@@ -29,5 +29,7 @@ namespace ProjetFinal.Models.Clients
             this.age = age;
             this.role = role;
         }
+
+
     }
 }
