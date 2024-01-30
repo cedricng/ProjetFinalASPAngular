@@ -1,12 +1,9 @@
 ﻿using ProjetFinal.DAL;
-using ProjetFinal.Models.Clients;
-using ProjetFinal.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Configuration;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -22,11 +19,14 @@ namespace ProjetFinal.Controllers
 
         }
 
+
+
+
+
         // GET: api/Client/?login=pseudo
         public Client Get(string login)
         {
-            return ClientService.GetClientByLogin(login);
-            //return new DaoClient().FindByLogin(login);
+            return new DaoClient().FindByLogin(login);
         }
 
         /*// GET: api/Client/
@@ -35,10 +35,15 @@ namespace ProjetFinal.Controllers
             return new DaoClient().FindByLogin(login);
         }*/
 
+        // POST: api/Client
+        public void Post([FromBody]Client value)
+        {
+            new DaoClient().Create(value);
 
+        }
 
         // PUT: api/Client
-        public void Put([FromBody] Client value)
+        public void Put([FromBody]Client value)
         {
             new DaoClient().Update(value);
         }
@@ -46,7 +51,7 @@ namespace ProjetFinal.Controllers
         // DELETE: api/Client/?login=pseudo
         public void Delete(string login)
         {
-            new DaoClient().DeleteByLogin(login);
+            new DaoClient().Delete(login);
         }
 
         /*// DELETE: api/Client/
@@ -54,35 +59,5 @@ namespace ProjetFinal.Controllers
         {
             new DaoClient().Delete(login);
         }*/
-
-        [HttpPost]
-        [Route("api/client/login")]
-        public IHttpActionResult Login([FromBody] LoginModel loginModel)
-        {
-            // Appelez la méthode d'authentification de votre service
-            var token = ClientService.Login(loginModel);
-
-            if (token == null)
-            {
-                // L'authentification a échoué
-                return Unauthorized(); // 401 Unauthorized
-            }
-
-            // L'authentification a réussi, retournez le token JWT
-            return Ok(new { Token = token });
-        }
-
-
-        [HttpPost]
-        [Route("api/client/register")]
-        public IHttpActionResult Register([FromBody] Client value)
-        {
-            // Appelez la méthode d'inscription de votre service
-            ClientService.Register(value);
-
-            // L'inscription a réussi, retournez une réponse réussie
-            return Ok("Registration successful");
-        }
     }
 }
-        

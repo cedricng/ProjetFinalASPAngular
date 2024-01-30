@@ -18,6 +18,7 @@ namespace ProjetFinal.DAL
         public Client()
         {
             this.Commandes = new HashSet<Commande>();
+            this.Auth = new HashSet<Auth>();
         }
     
         public int id { get; set; }
@@ -29,9 +30,10 @@ namespace ProjetFinal.DAL
         public string adresse { get; set; }
         public Nullable<int> age { get; set; }
         public string role { get; set; }
-        public string password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Commande> Commandes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Auth> Auth { get; set; }
     }
 }

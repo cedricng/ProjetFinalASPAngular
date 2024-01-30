@@ -9,7 +9,11 @@
         <EntityTypeShape EntityType="projetfinalModel.Client" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="projetfinalModel.Commande" Width="1.5" PointX="2.875" PointY="0.625" IsExpanded="true" />
         <AssociationConnector Association="projetfinalModel.FK_Commandes_Clients" ManuallyRouted="false" />
-        </Diagram>
+        <EntityTypeShape EntityType="projetfinalModel.Auth" Width="1.5" PointX="2.875" PointY="3.125" />
+        <AssociationConnector Association="projetfinalModel.FK_Auth_Clients" />
+        <AssociationConnector Association="projetfinalModel.FK_Auth_Clients1" />
+        <AssociationConnector Association="projetfinalModel.FK_Auth_Clients2" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
