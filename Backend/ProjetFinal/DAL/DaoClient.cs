@@ -2,16 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Deployment.Internal;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.UI.WebControls;
 using static System.Web.Razor.Parser.SyntaxConstants;
 
 namespace ProjetFinal.DAL
 {
     public class DaoClient
     {
+        private readonly projetfinalEntities contextT = new projetfinalEntities();
+
         public List<Client> FindAll()
         {
             projetfinalEntities context = new projetfinalEntities();
@@ -19,26 +23,31 @@ namespace ProjetFinal.DAL
         }
         public Client FindByLogin(string login)
         {
-           
+
             projetfinalEntities context = new projetfinalEntities();
             Client cli = context.Clients.FirstOrDefault(u => u.login == login);
-      
+
             return cli;
         }
         public Client FindByMail(string mail)
         {
             projetfinalEntities context = new projetfinalEntities();
-            return context.Clients.Find(mail);
-        }
-        public Client FindByLoginOrMail(string loginOrMail) {
-            projetfinalEntities context = new projetfinalEntities();
-            return context.Clients.Find(loginOrMail);
+            Client cli = context.Clients.FirstOrDefault(u => u.mail == mail);
+
+            return cli;
         }
 
-        public Client FindByLoginOrMail2(string loginOrMail)
+        public Client FindByLoginOrMail(string loginOrMail)
         {
             Client cli = (loginOrMail.Contains("@")) ? FindByMail(loginOrMail) : FindByLogin(loginOrMail);
             return cli;
+        }
+
+        public Client FindByLoginAndPassword(LoginModel loginModel)
+        {
+            projetfinalEntities context = new projetfinalEntities();
+            string hashedPassword = HashPassword(loginModel.Password);
+            return context.Clients.FirstOrDefault(u => u.login == loginModel.Login && u.password == hashedPassword);
         }
 
 
@@ -51,6 +60,7 @@ namespace ProjetFinal.DAL
                 prenom = cli.prenom,
                 login = cli.login,
                 mail = cli.mail,
+                password = cli.password,
                 telephone = cli.telephone,
                 adresse = cli.adresse,
                 role = cli.role
@@ -61,11 +71,18 @@ namespace ProjetFinal.DAL
             return cli;
         }
 
-
-        public void Delete(string login)
+        public void DeleteByLogin(string login)
         {
             projetfinalEntities context = new projetfinalEntities();
-            Client cli = context.Clients.Find(login);
+            Client cli = FindByLogin(login);
+            context.Clients.Remove(cli);
+            context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            projetfinalEntities context = new projetfinalEntities();
+            Client cli = context.Clients.Find(id);
             context.Clients.Remove(cli);
             context.SaveChanges();
         }
@@ -93,11 +110,14 @@ namespace ProjetFinal.DAL
             return true; // L'inscription a réussi
         }*/
 
+
         private string HashPassword(string password)
         {
             // Implémentez la logique de hachage sécurisée ici
             // Vous devriez utiliser une bibliothèque de hachage sécurisée comme BCrypt ou Argon2
             return password; // Ceci est un exemple simplifié, NE PAS utiliser dans un environnement de production réel
         }
+
+
     }
 }
