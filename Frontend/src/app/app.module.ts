@@ -7,6 +7,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProduitsComponent } from './produits/produits.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PanierComponent } from './panier/panier.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -15,12 +17,14 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ProduitsComponent
+    ProduitsComponent,
+    PanierComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

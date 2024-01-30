@@ -1,0 +1,61 @@
+<div class="container">
+    
+       
+
+        <h2 class="text-center display-3">Fais ton propre Repas </h2>
+        <br />
+    
+    <hr />
+    <div class="row">
+        <div class="col-6">
+                <h3>Fais ton choix parmi nos plats fait maison</h3>
+                <img style="height:80px" [src]="selectedValue!= null ? 'assets/images/'+selectedValue.image : ''" >
+                <div class="form-group">
+
+                    <label for="sel1">Select list:</label>
+                    
+                    <select [(ngModel)]="selectedValue">
+                        <option *ngFor="let option of Mylist" [ngValue]="option" >
+                          {{option.titre}} -{{option.prix}} €
+                        </option>
+                      </select>
+                    <!--<input id="prodId" name="prodId" type="hidden" value="xm234jq" >-->
+
+                    <label for="quantite">Quantite:</label>
+                    <input type="number" class="form-control" id="quantite" name="quantite" [(ngModel)]="quantite">
+                    <br />
+                    <button class="btn btn-primary" (click)="Ajouter()" >Ajouter</button>
+                </div>
+        </div>
+        <div class="col-6">
+            <form action="/Commande/Recap" method="post">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Article</th>
+                            <th>Quantite</th>
+                            <th>Prix Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody   *ngFor="let pist of panier.infos | keyvalue">
+                       
+                            <tr>
+                                <td><img style="height:40px" src="assets/images/{{findArticle(pist.key).image}}"> {{findArticle(pist.key).titre}}</td>
+                                <td>{{pist.value}}</td>
+                                <td>{{findArticle(pist.key).prix * pist.value}} euros</td>
+                                <td>
+                                    <!--@Html.ActionLink("Retirer","Retirer" ,new { id=z.IdArticle },  null )-->
+                                                            </td>
+                            </tr>
+                       
+
+
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">Recapitulatif</button>
+            </form>
+        </div>
+    </div>
+</div>
