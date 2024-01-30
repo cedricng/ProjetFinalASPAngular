@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ImportBDD")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5247042fb2d5192aa5bfa48140ae64dcb8597293")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("ImportBDD")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ImportBDD")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

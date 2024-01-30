@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="projetfinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Articles">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="titre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="description" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="image" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="prix" Type="float" Nullable="false" />
+    <Property Name="categorie" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="prenom" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="login" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="mail" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="password" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="telephone" Type="nvarchar" MaxLength="30" />
+    <Property Name="adresse" Type="nvarchar" MaxLength="100" />
+    <Property Name="age" Type="int" />
+    <Property Name="role" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Commandes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idClient" Type="int" Nullable="false" />
+    <Property Name="date" Type="datetime" Nullable="false" />
+    <Property Name="prixTotal" Type="float" Nullable="false" />
+    <Property Name="infos" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Commandes_Clients">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="Commandes" Type="Self.Commandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Commandes">
+        <PropertyRef Name="idClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="projetfinalModelStoreContainer">
+    <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Commandes" EntityType="Self.Commandes" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Commandes_Clients" Association="Self.FK_Commandes_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Commandes" EntitySet="Commandes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

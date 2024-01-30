@@ -13,44 +13,44 @@ namespace ProjetFinal.Controllers
     public class ArticleController : ApiController
     {
         // GET: api/Article
-        public IEnumerable<articles> Get()
+        public IEnumerable<Article> Get()
         {
-            return new DAOArticle().FindAll();
+            return new DaoArticle().FindAll();
 
         }
 
         // GET api/Article/?min=10&max=15
         [HttpGet]
-        public IEnumerable<articles> FindByPrixMinMax(int min, int max)
+        public IEnumerable<Article> FindByPrixMinMax(int min, int max)
         {
-            return new DAOArticle().FindByPrixMinMax(min, max);
+            return new DaoArticle().FindByPrixMinMax(min, max);
         }
 
       
 
         // GET: api/Article/5
-        public articles Get(int id)
+        public Article Get(int id)
         {
-            return new DAOArticle().FindById(id);
+            return new DaoArticle().FindById(id);
         }
 
         // POST: api/Article
-        public void Post([FromBody]articles value)
+        public void Post([FromBody]Article value)
         {
-            new DAOArticle().Create(value);
+            new DaoArticle().Create(value);
 
         }
 
         // PUT: api/Article
-        public void Put([FromBody]articles value)
+        public void Put([FromBody]Article value)
         {
-            new DAOArticle().Update(value);
+            new DaoArticle().Update(value);
         }
 
         // DELETE: api/Article/5
         public void Delete(int id)
         {
-            new DAOArticle().Delete(id);
+            new DaoArticle().Delete(id);
         }
     }
 }

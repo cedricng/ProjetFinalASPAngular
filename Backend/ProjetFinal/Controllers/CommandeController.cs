@@ -13,7 +13,7 @@ namespace ProjetFinal.Controllers
     public class CommandeController : ApiController
     {
         // GET: api/Commande
-        public IEnumerable<Commandes> Get()
+        public IEnumerable<Commande> Get()
         {
             return new DaoCommande().FindAll();
 
@@ -24,20 +24,20 @@ namespace ProjetFinal.Controllers
 
 
         // GET: api/Commande/5
-        public Commandes Get(int id)
+        public Commande Get(int id)
         {
             return new DaoCommande().FindById(id);
         }
 
         // POST: api/Commande
-        public void Post([FromBody]Commandes value)
+        public void Post([FromBody]Commande value)
         {
             new DaoCommande().Create(value);
 
         }
 
         // PUT: api/Commande
-        public void Put([FromBody]Commandes value)
+        public void Put([FromBody]Commande value)
         {
             new DaoCommande().Update(value);
         }
