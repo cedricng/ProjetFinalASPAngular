@@ -1,4 +1,7 @@
-﻿using ProjetFinal.Models.Clients;
+﻿using AutoMapper;
+using ProjetFinal.Helpers;
+using ProjetFinal.Models.Clients;
+using ProjetFinal.Models.Token;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,6 +10,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using static System.Web.Razor.Parser.SyntaxConstants;
 
@@ -21,60 +25,51 @@ namespace ProjetFinal.DAL
             projetfinalEntities context = new projetfinalEntities();
             return context.Clients.ToList();
         }
-        public Client FindByLogin(string login)
+
+        public Client FindById(int id)
         {
-
             projetfinalEntities context = new projetfinalEntities();
-            Client cli = context.Clients.FirstOrDefault(u => u.login == login);
-
-            return cli;
+            return context.Clients.Find(id);
+        }
+        public Client FindByUsername(string username)
+        {
+            projetfinalEntities context = new projetfinalEntities();
+            Client client = context.Clients.FirstOrDefault(u => u.username == username);
+            return client;
         }
         public Client FindByMail(string mail)
         {
             projetfinalEntities context = new projetfinalEntities();
-            Client cli = context.Clients.FirstOrDefault(u => u.mail == mail);
-
-            return cli;
+            Client client = context.Clients.FirstOrDefault(u => u.mail == mail);
+            return client;
         }
 
-        public Client FindByLoginOrMail(string loginOrMail)
+        public Client FindByUsernameOrMail(string input)
         {
-            Client cli = (loginOrMail.Contains("@")) ? FindByMail(loginOrMail) : FindByLogin(loginOrMail);
-            return cli;
+            Client client = (input.Contains("@")) ? FindByMail(input) : FindByUsername(input);
+            return client;
         }
 
-        public Client FindByLoginAndPassword(LoginModel loginModel)
-        {
-            projetfinalEntities context = new projetfinalEntities();
-            string hashedPassword = HashPassword(loginModel.Password);
-            return context.Clients.FirstOrDefault(u => u.login == loginModel.Login && u.password == hashedPassword);
-        }
-
-
-        public Client Create(Client cli)
+        public Client FindByLoginAndPassword(LoginRequest loginModel)
         {
             projetfinalEntities context = new projetfinalEntities();
-            Client newClient = new Client
-            {
-                nom = cli.nom,
-                prenom = cli.prenom,
-                login = cli.login,
-                mail = cli.mail,
-                password = cli.password,
-                telephone = cli.telephone,
-                adresse = cli.adresse,
-                role = cli.role
-            };
+            //string hashedPassword = HashPassword(loginModel.password);
+            return context.Clients.FirstOrDefault(u => u.username == loginModel.username && u.password == loginModel.password);
+        }
 
-            context.Clients.Add(cli);
+
+        public Client Create(Client client)
+        {
+            projetfinalEntities context = new projetfinalEntities();
+            context.Clients.Add(client);
             context.SaveChanges();
-            return cli;
+            return client;
         }
 
-        public void DeleteByLogin(string login)
+        public void DeleteByUsername(string username)
         {
             projetfinalEntities context = new projetfinalEntities();
-            Client cli = FindByLogin(login);
+            Client cli = FindByUsername(username);
             context.Clients.Remove(cli);
             context.SaveChanges();
         }
@@ -86,38 +81,35 @@ namespace ProjetFinal.DAL
             context.Clients.Remove(cli);
             context.SaveChanges();
         }
-        public void Update(Client cli)
+        public void Update(UpdateRequest req)
         {
             projetfinalEntities context = new projetfinalEntities();
-            context.Entry(cli).State = EntityState.Modified;
+            Client client = Mapper.Map<Client>(req);
+            context.Entry(client).State = EntityState.Modified;
+            context.SaveChanges();
+
+
+        }
+        public void UpdateById(int id, UpdateRequest updateRequest)
+        {
+            projetfinalEntities context = new projetfinalEntities();
+            Client a = context.Clients.Find(id);
+            if(a != null)
+            {
+                Client client = Mapper.Map<Client>(updateRequest);
+                context.Entry(client).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+ 
+        }
+        public void UpdateByUsername(string username)
+        {
+            projetfinalEntities context = new projetfinalEntities();
+            Client client = FindByUsername(username);
+            context.Entry(client).State = EntityState.Modified;
             context.SaveChanges();
 
         }
-        /*
-        // Méthode pour enregistrer un nouvel utilisateur
-        public bool RegisterUser(string login, string password)
-        {
-            projetfinalEntities context = new projetfinalEntities();
-            // Vérifie si l'utilisateur existe déjà
-            if (context.Clients.Any(u => u.login == login))
-            {
-                return false; // L'utilisateur existe déjà, l'inscription échoue
-            }
-
-            var hashedPassword = HashPassword(password); // Assurez-vous d'implémenter la fonction de hachage
-            var newUser = new User { Username = username, Password = hashedPassword };
-            AddUser(newUser);
-            return true; // L'inscription a réussi
-        }*/
-
-
-        private string HashPassword(string password)
-        {
-            // Implémentez la logique de hachage sécurisée ici
-            // Vous devriez utiliser une bibliothèque de hachage sécurisée comme BCrypt ou Argon2
-            return password; // Ceci est un exemple simplifié, NE PAS utiliser dans un environnement de production réel
-        }
-
 
     }
 }

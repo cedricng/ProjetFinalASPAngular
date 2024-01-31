@@ -9,6 +9,8 @@ import { ProduitsComponent } from './produits/produits.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PanierComponent } from './panier/panier.component';
 import { FormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -18,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     FooterComponent,
     ProduitsComponent,
-    PanierComponent
+    PanierComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -23,7 +23,7 @@ namespace ProjetFinal.DAL
         public int id { get; set; }
         public string nom { get; set; }
         public string prenom { get; set; }
-        public string login { get; set; }
+        public string username { get; set; }
         public string mail { get; set; }
         public string telephone { get; set; }
         public string adresse { get; set; }

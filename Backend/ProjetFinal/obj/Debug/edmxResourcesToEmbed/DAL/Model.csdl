@@ -24,7 +24,7 @@
     <Property Name="adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="age" Type="Int32" />
     <Property Name="role" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Commandes" Relationship="Self.FK_Commandes_Clients" FromRole="Clients" ToRole="Commandes" />
+    <NavigationProperty Name="Commandes" Relationship="projetfinalModel.FK_Commandes_Clients" FromRole="Clients" ToRole="Commandes" />
     <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Commande">
@@ -36,7 +36,7 @@
     <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="prixTotal" Type="Double" Nullable="false" />
     <Property Name="infos" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Client" Relationship="Self.FK_Commandes_Clients" FromRole="Commandes" ToRole="Clients" />
+    <NavigationProperty Name="Client" Relationship="projetfinalModel.FK_Commandes_Clients" FromRole="Commandes" ToRole="Clients" />
   </EntityType>
   <Association Name="FK_Commandes_Clients">
     <End Role="Clients" Type="Self.Client" Multiplicity="1" />
