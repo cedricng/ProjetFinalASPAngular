@@ -9,7 +9,11 @@ import { ProduitsComponent } from './produits/produits.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PanierComponent } from './panier/panier.component';
 import { FormsModule } from '@angular/forms';
-
+import { RecapComponent } from './recap/recap.component';
+import { provideRouter } from '@angular/router';
+import { ValidationComponent } from './validation/validation.component';
+import { DatePipe } from '@angular/common';
+import { Produits2Component } from './produits2/produits2.component';
 
 
 @NgModule({
@@ -18,7 +22,10 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     FooterComponent,
     ProduitsComponent,
-    PanierComponent
+    PanierComponent,
+    RecapComponent,
+    ValidationComponent,
+    Produits2Component
   ],
   imports: [
     BrowserModule,
@@ -26,7 +33,7 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

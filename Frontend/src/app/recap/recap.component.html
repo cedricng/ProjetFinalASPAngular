@@ -1,0 +1,33 @@
+<div class="container">
+    <h2>Recapitulatif</h2>
+
+<table class="table table-hover table-sm table-bordered">
+
+    <thead>
+        <tr>
+            <th>Article</th>
+            <th>Quantite</th>
+            <th>Prix </th>
+            
+        </tr>
+    </thead>
+    <tbody   *ngFor="let pist of panier | keyvalue">
+       
+            <tr>
+                <td><img style="height:40px" src="assets/images/{{findArticle(pist.key).image}}"> {{findArticle(pist.key).titre}}</td>
+                <td>{{pist.value}}</td>
+                <td>{{findArticle(pist.key).prix * pist.value}} euros</td>
+                
+            </tr>
+       
+
+
+    </tbody>
+    <h3>Prix Total: {{prixTotal()}} euros</h3>
+    <br>
+    <div>
+    <button class="btn btn-info" (click)="Retour()">Retour au Panier</button> &nbsp;
+    <button class="btn btn-success" (click)="Valider()">Valider panier</button>
+</div>
+</table>
+</div>
