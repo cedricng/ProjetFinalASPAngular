@@ -1,5 +1,24 @@
+<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark px-3">
+  <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLink="/">Home</a>
+      <a class="nav-item nav-link ml-auto" routerLink="/account/login">Login</a>
+      <a class="nav-item nav-link" routerLink="/account/register">Register</a>
+  </div>
+</nav>
+<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark px-3" *ngIf="client">
+  <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLink="/">Home</a>
+      <button class="btn btn-link nav-item nav-link" (click)="logout()">Logout</button>
+  </div>
+</nav>
 
-
-<app-header></app-header>
-<router-outlet></router-outlet>
+<!-- main app container -->
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
 <app-footer></app-footer>

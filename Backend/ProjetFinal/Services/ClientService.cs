@@ -25,8 +25,7 @@ namespace ProjetFinal.Services
 
         public LoginResponse Login(LoginRequest login)
         {
-            // Si l'authentification est réussie, générez un token JWT
-            //(client == null || !BCrypt.Verify(model.Password, user.PasswordHash)
+
             if (ValidateCredentials(login))
             {
                 Client client = GetClientByUsername(login.username);
@@ -100,10 +99,12 @@ namespace ProjetFinal.Services
         {
             //BCrypt.Verify(model.Password, client.PasswordHash)
             //var hashedPassword = HashPassword(loginModel.Password); // Assurez-vous d'implémenter la fonction de hachage
-            // Client client = daoClient.FindByLogin(loginModel.Login);
             DaoClient daoClient = null;
-            Client client = daoClient.FindByLoginAndPassword(loginModel);
-            return (client != null);
+            Client cli = daoClient.FindByUsername(loginModel.username);
+            PasswordHasher hash = new PasswordHasher();
+            if (cli != null && hash.VerifyPassword(loginModel.password, cli.password))
+                return true;
+            return false;
         }
 
         private static string HashPassword(string password)

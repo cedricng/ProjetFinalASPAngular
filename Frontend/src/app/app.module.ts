@@ -6,11 +6,14 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProduitsComponent } from './produits/produits.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { PanierComponent } from './panier/panier.component';
-import { FormsModule } from '@angular/forms';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './account/register/register.component';
+import { LoginComponent } from './account/login/login.component';
+import { ClientComponent } from './client/client.component';
+import { HomeComponent } from './home/home/home.component';
+import { ErrorInterceptor, JwtInterceptor } from './_helpers';
 
 
 
@@ -22,15 +25,22 @@ import { LoginComponent } from './login/login.component';
     ProduitsComponent,
     PanierComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ClientComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
