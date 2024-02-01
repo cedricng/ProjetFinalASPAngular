@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Jl3lZNDyTfozQkcf+NpSIp0SpggJ5hn4pGRTTkZUqnzm8UZiMG3E+2ltsJN8p3rpaPiTAM3dxzXJL2ceIkDmFw==",
+  "dgSpecHash": "kEwijRhP/DAz6/dvzO7OcOIJ+GDJrEm++gd8GWArr8Y1PJrXxBPwfW1+dJU19n5etNJJeh83NCn+59p9YyBapg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\DELL\\Documents\\ajc\\C#\\ASP.NET\\ProjetFinalASPAngular\\ProjetBDD\\ImportBDD\\ImportBDD.csproj",
+  "projectFilePath": "C:\\Users\\DELL\\Documents\\ajc\\CSharp\\ASP.NET\\ProjetFinalASPAngular\\ProjetBDD\\ImportBDD\\ImportBDD.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DELL\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

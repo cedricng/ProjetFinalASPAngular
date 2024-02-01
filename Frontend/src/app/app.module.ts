@@ -6,9 +6,14 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProduitsComponent } from './produits/produits.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { PanierComponent } from './panier/panier.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './account/register/register.component';
+import { LoginComponent } from './account/login/login.component';
+import { ClientComponent } from './client/client.component';
+import { HomeComponent } from './home/home/home.component';
+import { ErrorInterceptor, JwtInterceptor } from './_helpers';
 import { RecapComponent } from './recap/recap.component';
 import { provideRouter } from '@angular/router';
 import { ValidationComponent } from './validation/validation.component';
@@ -23,6 +28,10 @@ import { Produits2Component } from './produits2/produits2.component';
     FooterComponent,
     ProduitsComponent,
     PanierComponent,
+    RegisterComponent,
+    LoginComponent,
+    ClientComponent,
+    HomeComponent,
     RecapComponent,
     ValidationComponent,
     Produits2Component
@@ -31,7 +40,13 @@ import { Produits2Component } from './produits2/produits2.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserModule,
+    ReactiveFormsModule
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
