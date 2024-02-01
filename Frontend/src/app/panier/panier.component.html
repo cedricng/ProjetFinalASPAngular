@@ -2,13 +2,13 @@
     
        
 
-        <h2 class="text-center display-3">Fais ton propre Repas </h2>
+        <h2 class="text-center display-3">Choisissez vos articles </h2>
         <br />
     
     <hr />
     <div class="row">
         <div class="col-6">
-                <h3>Fais ton choix parmi nos plats fait maison</h3>
+                <h3>Sélectionnez parmi les produits disponibles</h3>
                 <img style="height:80px" [src]="selectedValue!= null ? 'assets/images/'+selectedValue.image : ''" >
                 <div class="form-group">
 
@@ -28,22 +28,23 @@
                 </div>
         </div>
         <div class="col-6">
-            <form action="/Commande/Recap" method="post">
+            <form (ngSubmit)="Recap()">
 
-                <table class="table table-hover">
+                <table class="table table-hover table-sm table-bordered">
                     <thead>
                         <tr>
                             <th>Article</th>
                             <th>Quantite</th>
-                            <th>Prix Total</th>
+                            <th>Prix </th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody   *ngFor="let pist of panier.infos | keyvalue">
+                    <tbody   *ngFor="let pist of panier | keyvalue">
                        
                             <tr>
                                 <td><img style="height:40px" src="assets/images/{{findArticle(pist.key).image}}"> {{findArticle(pist.key).titre}}</td>
-                                <td>{{pist.value}}</td>
+                                <td> <button class="btn btn-danger btn-sm"(click)="Decrement(pist.key)"> - </button> {{pist.value}}
+                                    <button class="btn btn-primary btn-sm"(click)="Increment(pist.key)"> + </button></td>
                                 <td>{{findArticle(pist.key).prix * pist.value}} euros</td>
                                 <td>
                                     <!--@Html.ActionLink("Retirer","Retirer" ,new { id=z.IdArticle },  null )-->
@@ -54,7 +55,10 @@
 
                     </tbody>
                 </table>
-                <button type="submit" class="btn btn-primary">Recapitulatif</button>
+                <br>
+                <h3 class="text-right">Prix Total: {{prixTotal()}} euros</h3>
+                <br>
+                <button type="submit" class="btn btn-primary" >Recapitulatif</button>
             </form>
         </div>
     </div>

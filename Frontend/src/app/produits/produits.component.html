@@ -9,7 +9,7 @@
                       <h4 class="card-title">{{article.titre.toUpperCase()}}</h4>
                       <p class="card-text">{{article.description}}</p>
                       <p class="card-text">{{article.prix}} €</p>
-                      <a href="#" class="btn btn-primary">See Profile</a>
+                      <button class="btn btn-primary" (click)="Ajouter(article.id)">Ajouter au panier</button>
                     </div>
                   </div>
             </div>

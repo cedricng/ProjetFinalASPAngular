@@ -14,7 +14,11 @@ import { LoginComponent } from './account/login/login.component';
 import { ClientComponent } from './client/client.component';
 import { HomeComponent } from './home/home/home.component';
 import { ErrorInterceptor, JwtInterceptor } from './_helpers';
-
+import { RecapComponent } from './recap/recap.component';
+import { provideRouter } from '@angular/router';
+import { ValidationComponent } from './validation/validation.component';
+import { DatePipe } from '@angular/common';
+import { Produits2Component } from './produits2/produits2.component';
 
 
 @NgModule({
@@ -27,7 +31,10 @@ import { ErrorInterceptor, JwtInterceptor } from './_helpers';
     RegisterComponent,
     LoginComponent,
     ClientComponent,
-    HomeComponent
+    HomeComponent,
+    RecapComponent,
+    ValidationComponent,
+    Produits2Component
   ],
   imports: [
     BrowserModule,
@@ -41,6 +48,7 @@ import { ErrorInterceptor, JwtInterceptor } from './_helpers';
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
