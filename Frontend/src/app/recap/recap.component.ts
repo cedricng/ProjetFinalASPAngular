@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { formatDate, getLocaleDateTimeFormat } from '@angular/common';
 import { DatePipe } from '@angular/common';
+import { Client } from '@app/_models';
 
 @Component({
   selector: 'app-recap',
@@ -11,9 +12,12 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./recap.component.css']
 })
 export class RecapComponent {
+  getKeys(map:Map<Number,Number>){
+    return Array.from(map.keys());
+}
 Valider() {
 let c=new Commande();
-c.idClient=3;
+c.idClient=Number((<Client>JSON.parse(localStorage.getItem("client")!)).id);
 c.date=this.datepipe.transform(Date.now(), 'yyyy-MM-dd');
 c.infos=JSON.stringify(Array.from(this.panier.entries()));
 c.prixTotal=this.prixTotal();

@@ -16,11 +16,11 @@ namespace ProjetFinal.Helpers
 
     public class JwtManager
     {
-        private const string SecretKey = "your_secret_key";
+        private const string SecretKey =  "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING";
         private static readonly SymmetricSecurityKey SigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(SecretKey));
 
 
-        public static string GenerateTokenForLogin(Client client)
+        public static string GenerateTokenForLogin(Clients client)
         {
             var claims = new List<Claim>
         {
@@ -48,7 +48,7 @@ namespace ProjetFinal.Helpers
             return tokenHandler.WriteToken(token);
         }
 
-        public static string GenerateTokenForRegistration(Client client)
+        public static string GenerateTokenForRegistration(Clients client)
         {
             // Vous pouvez personnaliser les claims selon vos besoins lors de l'inscription
             var claims = new List<Claim>
@@ -95,7 +95,7 @@ namespace ProjetFinal.Helpers
             SecurityToken validatedToken;
             return tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
         }
-        public static string GenerateToken(Client client)
+        public static string GenerateToken(Clients client)
         {
             // generate token that is valid for 7 days
             var tokenHandler = new JwtSecurityTokenHandler();

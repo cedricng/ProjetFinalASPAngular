@@ -28,7 +28,7 @@ namespace ProjetFinal.Services
 
             if (ValidateCredentials(login))
             {
-                Client client = GetClientByUsername(login.username);
+                Clients client = GetClientByUsername(login.username);
 
                 // Générez le token JWT après une connexion réussie
                 var response = Mapper.Map<LoginResponse>(client);
@@ -40,38 +40,42 @@ namespace ProjetFinal.Services
             throw new BadRequestException("Username or password is incorrect");
         }
 
-        public string Register(RegisterRequest registerModel)
+        public string Register(RegisterRequest registerRequest)
         {
-            Client client = GetClientByUsername(registerModel.username);
+            Clients client = GetClientByUsername(registerRequest.username);
             if (client != null)
             {
-                throw new BadRequestException("User already found: " + registerModel.username);
+                throw new BadRequestException("User already found: " + registerRequest.username);
+                //return BadRequest("User already found: " + registerModel.username);
             }
-
             // map model to new user object
-            Client newClient = Mapper.Map<Client>(registerModel);
+            Clients newClient = Mapper.Map<Clients>(registerRequest);
             // hash password
-            newClient.password = HashPassword(registerModel.password);
-            Client cl = ((DaoClient)null).Create(newClient);
-            return JwtManager.GenerateToken(cl);
+
+            //newClient.password = HashPassword(registerModel.password);
+            DaoClient daoClient = new DaoClient();
+            daoClient.Create(newClient);
+
+            return JwtManager.GenerateToken(newClient);
         }
 
-        public List<Client> GetAllClients()
+
+        public List<Clients> GetAllClients()
         {
-            DaoClient daoClient = null;
+            DaoClient daoClient = new DaoClient();
             return daoClient.FindAll();
         }
 
-        public Client GetClientById(int id)
+        public Clients GetClientById(int id)
         {
-            DaoClient daoClient = null;
+            DaoClient daoClient = new DaoClient();
             return daoClient.FindById(id);
 
         }
 
-        public Client GetClientByUsername(string username)
+        public Clients GetClientByUsername(string username)
         {
-            DaoClient daoClient = null;
+            DaoClient daoClient = new DaoClient();
             return daoClient.FindByUsername(username);
 
         }
@@ -99,12 +103,10 @@ namespace ProjetFinal.Services
         {
             //BCrypt.Verify(model.Password, client.PasswordHash)
             //var hashedPassword = HashPassword(loginModel.Password); // Assurez-vous d'implémenter la fonction de hachage
-            DaoClient daoClient = null;
-            Client cli = daoClient.FindByUsername(loginModel.username);
-            PasswordHasher hash = new PasswordHasher();
-            if (cli != null && hash.VerifyPassword(loginModel.password, cli.password))
-                return true;
-            return false;
+            DaoClient daoClient = new DaoClient();
+
+            Clients cli = daoClient.FindByLoginAndPassword(loginModel);
+            return (cli != null);
         }
 
         private static string HashPassword(string password)

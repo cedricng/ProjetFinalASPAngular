@@ -8,4 +8,5 @@ export class Client {
   adresse?: string;
   telephone?: string;
   token?: string;
+  role ?: string;
 }

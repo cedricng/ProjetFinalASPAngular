@@ -8,17 +8,17 @@ namespace ProjetFinal.DAL
 {
     public class DaoArticle
     {
-        public List<Article> FindAll()
+        public List<Articles> FindAll()
         {
             projetfinalEntities context = new projetfinalEntities();
             return context.Articles.ToList();
         }
-        public Article FindById(int id)
+        public Articles FindById(int id)
         {
             projetfinalEntities context = new projetfinalEntities();
             return context.Articles.Find(id);
         }
-        public Article Create(Article art)
+        public Articles Create(Articles art)
         {
             projetfinalEntities context = new projetfinalEntities();
             context.Articles.Add(art);
@@ -26,7 +26,7 @@ namespace ProjetFinal.DAL
             return art;
         }
 
-        public List<Article> FindByPrixMinMax(int min, int max)
+        public List<Articles> FindByPrixMinMax(int min, int max)
         {
             projetfinalEntities context = new projetfinalEntities();
 
@@ -38,11 +38,11 @@ namespace ProjetFinal.DAL
         public void Delete(int id)
         {
             projetfinalEntities context = new projetfinalEntities();
-            Article art = context.Articles.Find(id);
+            Articles art = context.Articles.Find(id);
             context.Articles.Remove(art);
             context.SaveChanges();
         }
-        public void Update(Article art)
+        public void Update(Articles art)
         {
             projetfinalEntities context = new projetfinalEntities();
             context.Entry(art).State = EntityState.Modified;

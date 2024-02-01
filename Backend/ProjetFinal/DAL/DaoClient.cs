@@ -20,37 +20,37 @@ namespace ProjetFinal.DAL
     {
         private readonly projetfinalEntities contextT = new projetfinalEntities();
 
-        public List<Client> FindAll()
+        public List<Clients> FindAll()
         {
             projetfinalEntities context = new projetfinalEntities();
             return context.Clients.ToList();
         }
 
-        public Client FindById(int id)
+        public Clients FindById(int id)
         {
             projetfinalEntities context = new projetfinalEntities();
             return context.Clients.Find(id);
         }
-        public Client FindByUsername(string username)
+        public Clients FindByUsername(string username)
         {
             projetfinalEntities context = new projetfinalEntities();
-            Client client = context.Clients.FirstOrDefault(u => u.username == username);
+            Clients client = context.Clients.FirstOrDefault(u => u.username == username);
             return client;
         }
-        public Client FindByMail(string mail)
+        public Clients FindByMail(string mail)
         {
             projetfinalEntities context = new projetfinalEntities();
-            Client client = context.Clients.FirstOrDefault(u => u.mail == mail);
+            Clients client = context.Clients.FirstOrDefault(u => u.mail == mail);
             return client;
         }
 
-        public Client FindByUsernameOrMail(string input)
+        public Clients FindByUsernameOrMail(string input)
         {
-            Client client = (input.Contains("@")) ? FindByMail(input) : FindByUsername(input);
+            Clients client = (input.Contains("@")) ? FindByMail(input) : FindByUsername(input);
             return client;
         }
 
-        public Client FindByLoginAndPassword(LoginRequest loginModel)
+        public Clients FindByLoginAndPassword(LoginRequest loginModel)
         {
             projetfinalEntities context = new projetfinalEntities();
             //string hashedPassword = HashPassword(loginModel.password);
@@ -58,7 +58,7 @@ namespace ProjetFinal.DAL
         }
 
 
-        public Client Create(Client client)
+        public Clients Create(Clients client)
         {
             projetfinalEntities context = new projetfinalEntities();
             context.Clients.Add(client);
@@ -69,7 +69,7 @@ namespace ProjetFinal.DAL
         public void DeleteByUsername(string username)
         {
             projetfinalEntities context = new projetfinalEntities();
-            Client cli = FindByUsername(username);
+            Clients cli = FindByUsername(username);
             context.Clients.Remove(cli);
             context.SaveChanges();
         }
@@ -77,14 +77,14 @@ namespace ProjetFinal.DAL
         public void Delete(int id)
         {
             projetfinalEntities context = new projetfinalEntities();
-            Client cli = context.Clients.Find(id);
+            Clients cli = context.Clients.Find(id);
             context.Clients.Remove(cli);
             context.SaveChanges();
         }
         public void Update(UpdateRequest req)
         {
             projetfinalEntities context = new projetfinalEntities();
-            Client client = Mapper.Map<Client>(req);
+            Clients client = Mapper.Map<Clients>(req);
             context.Entry(client).State = EntityState.Modified;
             context.SaveChanges();
 
@@ -93,10 +93,10 @@ namespace ProjetFinal.DAL
         public void UpdateById(int id, UpdateRequest updateRequest)
         {
             projetfinalEntities context = new projetfinalEntities();
-            Client a = context.Clients.Find(id);
+            Clients a = context.Clients.Find(id);
             if(a != null)
             {
-                Client client = Mapper.Map<Client>(updateRequest);
+                Clients client = Mapper.Map<Clients>(updateRequest);
                 context.Entry(client).State = EntityState.Modified;
                 context.SaveChanges();
             }
@@ -105,7 +105,7 @@ namespace ProjetFinal.DAL
         public void UpdateByUsername(string username)
         {
             projetfinalEntities context = new projetfinalEntities();
-            Client client = FindByUsername(username);
+            Clients client = FindByUsername(username);
             context.Entry(client).State = EntityState.Modified;
             context.SaveChanges();
 

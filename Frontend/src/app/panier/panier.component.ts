@@ -14,7 +14,7 @@ export class PanierComponent {
   panier: Map<number,number>=new Map<number,number>;
 quantite: number=0;
 Recap() {
-  this.router.navigate(['panier/recap']);
+  this.router.navigate(['recap']);
 
 }
 selectedValue: any;

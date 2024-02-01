@@ -1,24 +1,64 @@
-<!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark px-3">
-  <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLink="/">Home</a>
-      <a class="nav-item nav-link ml-auto" routerLink="/account/login">Login</a>
-      <a class="nav-item nav-link" routerLink="/account/register">Register</a>
-  </div>
-</nav>
-<!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark px-3" *ngIf="client">
-  <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLink="/">Home</a>
-      <button class="btn btn-link nav-item nav-link" (click)="logout()">Logout</button>
-  </div>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+	<a href="#" class="navbar-brand"> {{ Title }} </a>
+	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<!-- Collection of nav links, forms, and other content for toggling -->
+	<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+		<div class="navbar-nav">
+			<a routerLink="/" class="nav-item nav-link">Home</a>
+			<a href="/" class="nav-item nav-link">About</a>
+			<div class="nav-item dropdown">
+				<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle">Services</a>
+				<div class="dropdown-menu">
+					<a href="#" class="dropdown-item">Web Design</a>
+					<a href="#" class="dropdown-item">Web Development</a>
+					<a href="#" class="dropdown-item">Graphic Design</a>
+					<a href="#" class="dropdown-item">Digital Marketing</a>
+                </div>
+            </div>
+			<a href="#" class="nav-item nav-link active">Pricing</a>
+			<a href="#" class="nav-item nav-link">Blog</a>
+			<a href="#" class="nav-item nav-link">Contact</a>
+		</div>
+    <!--
+		<form class="navbar-form form-inline">
+			<div class="input-group search-box">
+				<input type="text" id="search" class="form-control" placeholder="Search here...">
+				<div class="input-group-append">
+					<span class="input-group-text">
+						<i class="material-icons">&#xE8B6;</i>
+					</span>
+				</div>
+			</div>
+		</form>
+  -->
+		<div class="navbar-nav ml-auto d-flex">
+        <div class="nav-item dropdown" *ngIf="!client">
+          <a routerLink="account/login" data-toggle="dropdown" class="btn btn-primary dropdown-toggle sign-up-btn">Login</a>
+        </div>
+        <div class="navbar-nav" *ngIf="client">
+          <button class="btn btn-primary" (click)="logout()">Logout</button>
+        </div>
+
+      </div>
+	</div>
 </nav>
 
+
 <!-- main app container -->
-<div class="container">
+<div class="app-container" [ngClass]="{ 'bg-light': client }">
+  <alert></alert>
   <router-outlet></router-outlet>
 </div>
-<div class="container">
-  <router-outlet></router-outlet>
+
+<!-- credits
+<div class="text-center mt-4">
+  <p>
+      <a href="https://jasonwatmore.com/post/2022/11/29/angular-14-user-registration-and-login-example-tutorial" target="_top">Angular 14 - User Registration and Login Example & Tutorial</a>
+  </p>
+  <p>
+      <a href="https://jasonwatmore.com" target="_top">JasonWatmore.com</a>
+  </p>
 </div>
-<app-footer></app-footer>
+-->

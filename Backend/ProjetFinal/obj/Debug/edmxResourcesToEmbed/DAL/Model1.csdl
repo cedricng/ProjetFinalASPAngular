@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="projetfinalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="admin">
-    <Key>
-      <PropertyRef Name="login" />
-    </Key>
-    <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="actif" Type="Boolean" Nullable="false" />
-  </EntityType>
-  <EntityType Name="articles">
+  <EntityType Name="Articles">
     <Key>
       <PropertyRef Name="id" />
     </Key>
@@ -19,19 +11,21 @@
     <Property Name="prix" Type="Double" Nullable="false" />
     <Property Name="categorie" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
   </EntityType>
-  <EntityType Name="clients">
+  <EntityType Name="Clients">
     <Key>
-      <PropertyRef Name="login" />
+      <PropertyRef Name="id" />
     </Key>
-    <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="nom" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="prenom" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="mail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="telephone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="ville" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="codePostal" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="mail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="age" Type="Int32" />
+    <Property Name="role" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Commandes" Relationship="Self.FK_Commandes_Clients" FromRole="Clients" ToRole="Commandes" />
   </EntityType>
   <EntityType Name="Commandes">
     <Key>
@@ -40,13 +34,40 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="idClient" Type="Int32" Nullable="false" />
     <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="prixtotal" Type="Double" Nullable="false" />
+    <Property Name="prixTotal" Type="Double" Nullable="false" />
     <Property Name="infos" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Clients" Relationship="Self.FK_Commandes_Clients" FromRole="Commandes" ToRole="Clients" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Commandes_Clients">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="Commandes" Type="Self.Commandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Commandes">
+        <PropertyRef Name="idClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="projetfinalEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="admin" EntityType="Self.admin" />
-    <EntitySet Name="articles" EntityType="Self.articles" />
-    <EntitySet Name="clients" EntityType="Self.clients" />
+    <EntitySet Name="Articles" EntityType="Self.Articles" />
+    <EntitySet Name="Clients" EntityType="Self.Clients" />
     <EntitySet Name="Commandes" EntityType="Self.Commandes" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_Commandes_Clients" Association="Self.FK_Commandes_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Commandes" EntitySet="Commandes" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService } from '@app/services/account.service';
+import { AlertService } from '@app/services/alert.service';
 
 
 @Component({ templateUrl: 'login.component.html' })
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private accountService: AccountService
+        private accountService: AccountService,
+        private alertService: AlertService
     ) {
         // redirect to home if already logged in
         if (this.accountService.clientValue) {
@@ -38,6 +40,8 @@ export class LoginComponent implements OnInit {
         this.submitted = true;
 
         // reset alert on submit
+          // reset alerts on submit
+          this.alertService.clear();
         this.error = '';
 
         // stop here if form is invalid
@@ -56,7 +60,9 @@ export class LoginComponent implements OnInit {
                 },
                 error: error => {
                     this.error = error;
+                    this.alertService.error(error);
                     this.loading = false;
+                    console.log(this.error);
                 }
             });
     }

@@ -6,6 +6,7 @@ import { AccountService } from './services/account.service';
 @Component({ selector: 'app-root', templateUrl: 'app.component.html' })
 export class AppComponent {
     client?: Client | null;
+    Title = "Hi-tech App";
 
     constructor(private accountService: AccountService) {
         this.accountService.client.subscribe(x => this.client = x);

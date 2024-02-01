@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="projetfinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="admin">
-    <Key>
-      <PropertyRef Name="login" />
-    </Key>
-    <Property Name="login" Type="nvarchar" MaxLength="30" Nullable="false" />
-    <Property Name="password" Type="nvarchar" MaxLength="30" Nullable="false" />
-    <Property Name="actif" Type="bit" Nullable="false" />
-  </EntityType>
-  <EntityType Name="articles">
+  <EntityType Name="Articles">
     <Key>
       <PropertyRef Name="id" />
     </Key>
@@ -19,19 +11,20 @@
     <Property Name="prix" Type="float" Nullable="false" />
     <Property Name="categorie" Type="nvarchar" MaxLength="30" Nullable="false" />
   </EntityType>
-  <EntityType Name="clients">
+  <EntityType Name="Clients">
     <Key>
-      <PropertyRef Name="login" />
+      <PropertyRef Name="id" />
     </Key>
-    <Property Name="login" Type="nvarchar" MaxLength="30" Nullable="false" />
-    <Property Name="password" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nom" Type="nvarchar" MaxLength="30" Nullable="false" />
     <Property Name="prenom" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="username" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="mail" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="password" Type="nvarchar" MaxLength="30" Nullable="false" />
     <Property Name="telephone" Type="nvarchar" MaxLength="30" />
     <Property Name="adresse" Type="nvarchar" MaxLength="100" />
-    <Property Name="ville" Type="nvarchar" MaxLength="30" />
-    <Property Name="codePostal" Type="nvarchar" MaxLength="30" />
-    <Property Name="mail" Type="nvarchar" MaxLength="100" />
+    <Property Name="age" Type="int" />
+    <Property Name="role" Type="nchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="Commandes">
     <Key>
@@ -40,13 +33,39 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="idClient" Type="int" Nullable="false" />
     <Property Name="date" Type="datetime" Nullable="false" />
-    <Property Name="prixtotal" Type="float" Nullable="false" />
+    <Property Name="prixTotal" Type="float" Nullable="false" />
     <Property Name="infos" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Commandes_Clients">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="Commandes" Type="Self.Commandes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Commandes">
+        <PropertyRef Name="idClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="projetfinalModelStoreContainer">
-    <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="articles" EntityType="Self.articles" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="clients" EntityType="Self.clients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Commandes" EntityType="Self.Commandes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Commandes_Clients" Association="Self.FK_Commandes_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Commandes" EntitySet="Commandes" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

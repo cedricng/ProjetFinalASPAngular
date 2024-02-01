@@ -11,7 +11,7 @@
             
         </tr>
     </thead>
-    <tbody   *ngFor="let pist of panier | keyvalue">
+    <tbody *ngFor="let pist of panier | keyvalue ">
        
             <tr>
                 <td><img style="height:40px" src="assets/images/{{findArticle(pist.key).image}}"> {{findArticle(pist.key).titre}}</td>

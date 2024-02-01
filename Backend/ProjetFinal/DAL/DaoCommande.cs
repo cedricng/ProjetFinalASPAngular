@@ -8,17 +8,17 @@ namespace ProjetFinal.DAL
 {
     public class DaoCommande
     {
-        public List<Commande> FindAll()
+        public List<Commandes> FindAll()
         {
             projetfinalEntities context = new projetfinalEntities();
-            return context.Commandes.ToList<Commande>();
+            return context.Commandes.ToList<Commandes>();
         }
-        public Commande FindById(int id)
+        public Commandes FindById(int id)
         {
             projetfinalEntities context = new projetfinalEntities();
             return context.Commandes.Find(id);
         }
-        public Commande Create(Commande com)
+        public Commandes Create(Commandes com)
         {
             projetfinalEntities context = new projetfinalEntities();
             context.Commandes.Add(com);
@@ -33,11 +33,11 @@ namespace ProjetFinal.DAL
         public void Delete(int id)
         {
             projetfinalEntities context = new projetfinalEntities();
-            Commande com = context.Commandes.Find(id);
+            Commandes com = context.Commandes.Find(id);
             context.Commandes.Remove(com);
             context.SaveChanges();
         }
-        public void Update(Commande p)
+        public void Update(Commandes p)
         {
             projetfinalEntities context = new projetfinalEntities();
             context.Entry(p).State = EntityState.Modified;

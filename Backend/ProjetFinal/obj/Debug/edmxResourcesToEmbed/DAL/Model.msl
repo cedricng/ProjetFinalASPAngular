@@ -20,7 +20,7 @@
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="nom" ColumnName="nom" />
           <ScalarProperty Name="prenom" ColumnName="prenom" />
-          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="username" ColumnName="login" />
           <ScalarProperty Name="mail" ColumnName="mail" />
           <ScalarProperty Name="telephone" ColumnName="telephone" />
           <ScalarProperty Name="adresse" ColumnName="adresse" />

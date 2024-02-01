@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AutoMapper;
+using ProjetFinal.DAL;
+using ProjetFinal.Models.Clients;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,6 +21,13 @@ namespace ProjetFinal
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Mapper.Initialize(cfg => {
+                cfg.CreateMap< Clients, LoginResponse>();
+                cfg.CreateMap<RegisterRequest, Clients>();
+
+                // Add other mappings as needed
+            });
         }
     }
 }

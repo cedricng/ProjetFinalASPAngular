@@ -1,0 +1,19 @@
+
+
+ img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+  }
+
+  .carousel {
+    height: 360px;
+}
+
+.carousel-inner > .carousel-item > img {
+    height: 360px;
+    object-fit: contain;
+    position:relative;
+    width:100%;
+}
